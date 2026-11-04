@@ -27,7 +27,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     var autoStart by mutableStateOf(settings.autoStart); private set
     var keepAwake by mutableStateOf(settings.keepAwake); private set
 
-    fun setPort(v: Int) {
+    fun updatePort(v: Int) {
         if (v == port) return
         port = v
         settings.port = v
@@ -37,24 +37,24 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
-    fun setFolder(raw: String) {
+    fun updateFolder(raw: String) {
         val clean = raw.filter { it.isLetterOrDigit() || it in " _-." }
             .trim().trimStart('.').ifEmpty { "FileDrop" }
         folder = clean
         settings.folder = clean
     }
 
-    fun setTheme(v: Int) {
+    fun updateTheme(v: Int) {
         theme = v
         settings.theme = v
     }
 
-    fun setAutoStart(v: Boolean) {
+    fun updateAutoStart(v: Boolean) {
         autoStart = v
         settings.autoStart = v
     }
 
-    fun setKeepAwake(v: Boolean) {
+    fun updateKeepAwake(v: Boolean) {
         keepAwake = v
         settings.keepAwake = v
     }

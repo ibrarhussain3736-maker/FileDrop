@@ -254,7 +254,7 @@ fun SettingsScreen(vm: MainViewModel, onBack: () -> Unit) {
                 onValueChange = {
                     portText = it.filter(Char::isDigit).take(5)
                     val v = portText.toIntOrNull()
-                    if (v != null && v in 1024..65535) vm.setPort(v)
+                    if (v != null && v in 1024..65535) vm.updatePort(v)
                 },
                 label = { Text("Port (1024-65535)") },
                 isError = !portValid,
@@ -267,7 +267,7 @@ fun SettingsScreen(vm: MainViewModel, onBack: () -> Unit) {
                 value = folderText,
                 onValueChange = {
                     folderText = it
-                    vm.setFolder(it)
+                    vm.updateFolder(it)
                 },
                 label = { Text("Save folder (inside Downloads)") },
                 supportingText = { Text("Files are saved to Downloads/${vm.folder}") },
@@ -280,16 +280,16 @@ fun SettingsScreen(vm: MainViewModel, onBack: () -> Unit) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .clickable { vm.setTheme(i) },
+                        .clickable { vm.updateTheme(i) },
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    RadioButton(selected = vm.theme == i, onClick = { vm.setTheme(i) })
+                    RadioButton(selected = vm.theme == i, onClick = { vm.updateTheme(i) })
                     Text(label)
                 }
             }
 
-            SwitchRow("Start receiver when the app opens", vm.autoStart) { vm.setAutoStart(it) }
-            SwitchRow("Keep screen on while receiving", vm.keepAwake) { vm.setKeepAwake(it) }
+            SwitchRow("Start receiver when the app opens", vm.autoStart) { vm.updateAutoStart(it) }
+            SwitchRow("Keep screen on while receiving", vm.keepAwake) { vm.updateKeepAwake(it) }
 
             Text(
                 "Receiving only works while the app is open. Both devices must be on the same Wi-Fi or hotspot.",
